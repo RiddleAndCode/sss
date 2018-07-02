@@ -1,14 +1,11 @@
 project (sss)
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.11.4)
 
 set(TARGET_GROUP main CACHE STRING "Group to build")
-set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O2 -m64 -std=c99 \
-    -pedantic	-Wall -Wshadow -Wpointer-arith -Wcast-qual \
-    -Wformat -Wformat-security -Werror=format-security \
-    -Wstrict-prototypes -Wmissing-prototypes -D_FORTIFY_SOURCE=2 \
-    -fPIC -fno-strict-overflow" )
 
-
+if(CPPCHECK)
+    set(CMAKE_C_CPPCHECK "cppcheck" --enable=warning,performance,portability,style --error-exitcode=1 --force --quiet)
+endif()
 
 add_subdirectory(src)
 

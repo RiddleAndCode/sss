@@ -13,7 +13,6 @@
 
 #include <inttypes.h>
 #include <string.h>
-#include <stdlib.h>
 
 #define sss_KEYSHARE_LEN 33 /* 1 + 32 */
 

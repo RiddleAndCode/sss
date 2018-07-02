@@ -142,7 +142,7 @@ int crypto_stream_salsa20_xor(u8 *c, const u8 *m, u64 b, const u8 *n,
                               const u8 *k)
 {
   u8 z[16], x[64];
-  u32 u, i;
+  u32 i;
   if (!b)
     return 0;
   FOR(i, 16)
@@ -154,7 +154,7 @@ int crypto_stream_salsa20_xor(u8 *c, const u8 *m, u64 b, const u8 *n,
     crypto_core_salsa20(x, z, k, sigma);
     FOR(i, 64)
     c[i] = (m ? m[i] : 0) ^ x[i];
-    u = 1;
+    u32 u = 1;
     for (i = 8; i < 16; ++i)
     {
       u += (u32)z[i];
@@ -210,7 +210,7 @@ static const u32 minusp[17] = {5, 0, 0, 0, 0, 0, 0, 0, 0,
 
 int crypto_onetimeauth(u8 *out, const u8 *m, u64 n, const u8 *k)
 {
-  u32 s, i, j, u, x[17], r[17], h[17], c[17], g[17];
+  u32 s, i, j, x[17], r[17], h[17], c[17], g[17];
 
   FOR(j, 17)
   r[j] = h[j] = 0;
@@ -242,7 +242,7 @@ int crypto_onetimeauth(u8 *out, const u8 *m, u64 n, const u8 *k)
     }
     FOR(i, 17)
     h[i] = x[i];
-    u = 0;
+    u32 u = 0;
     FOR(j, 16)
     {
       u += h[j];
@@ -322,11 +322,11 @@ sv set25519(gf r, const gf a)
 sv car25519(gf o)
 {
   int i;
-  i64 c;
+
   FOR(i, 16)
   {
     o[i] += (1LL << 16);
-    c = o[i] >> 16;
+    i64 c = o[i] >> 16;
     o[(i + 1) * (i < 15)] += c - 1 + 37 * (c - 1) * (i == 15);
     o[i] -= c << 16;
   }
@@ -334,10 +334,10 @@ sv car25519(gf o)
 
 sv sel25519(gf p, gf q, int b)
 {
-  i64 t, i, c = ~(b - 1);
+  i64 i, c = ~(b - 1);
   FOR(i, 16)
   {
-    t = c & (p[i] ^ q[i]);
+    i64 t = c & (p[i] ^ q[i]);
     p[i] ^= t;
     q[i] ^= t;
   }
@@ -345,7 +345,7 @@ sv sel25519(gf p, gf q, int b)
 
 sv pack25519(u8 *o, const gf n)
 {
-  int i, j, b;
+  int i, j;
   gf m, t;
   FOR(i, 16)
   t[i] = n[i];
@@ -361,7 +361,7 @@ sv pack25519(u8 *o, const gf n)
       m[i - 1] &= 0xffff;
     }
     m[15] = t[15] - 0x7fff - ((m[14] >> 16) & 1);
-    b = (m[15] >> 16) & 1;
+    int b = (m[15] >> 16) & 1;
     m[14] &= 0xffff;
     sel25519(t, m, 1 - b);
   }
@@ -462,7 +462,7 @@ sv pow2523(gf o, const gf i)
 int crypto_scalarmult(u8 *q, const u8 *n, const u8 *p)
 {
   u8 z[32];
-  i64 x[80], r, i;
+  i64 x[80], i;
   gf a, b, c, d, e, f;
   FOR(i, 31)
   z[i] = n[i];
@@ -477,7 +477,7 @@ int crypto_scalarmult(u8 *q, const u8 *n, const u8 *p)
   a[0] = d[0] = 1;
   for (i = 254; i >= 0; --i)
   {
-    r = (z[i >> 3] >> (i & 7)) & 1;
+    i64 r = (z[i >> 3] >> (i & 7)) & 1;
     sel25519(a, b, r);
     sel25519(c, d, r);
     A(e, a, c);

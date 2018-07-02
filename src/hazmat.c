@@ -24,12 +24,11 @@
 static void bitslice(uint32_t r[8], const uint8_t x[32])
 {
   size_t bit_idx, arr_idx;
-  uint32_t cur;
 
   memset(r, 0, sizeof(uint32_t[8]));
   for (arr_idx = 0; arr_idx < 32; arr_idx++)
   {
-    cur = (uint32_t)x[arr_idx];
+    uint32_t cur = (uint32_t)x[arr_idx];
     for (bit_idx = 0; bit_idx < 8; bit_idx++)
     {
       r[bit_idx] |= ((cur & (1 << bit_idx)) >> bit_idx) << arr_idx;
@@ -40,12 +39,11 @@ static void bitslice(uint32_t r[8], const uint8_t x[32])
 static void unbitslice(uint8_t r[32], const uint32_t x[8])
 {
   size_t bit_idx, arr_idx;
-  uint32_t cur;
 
   memset(r, 0, sizeof(uint8_t[32]));
   for (bit_idx = 0; bit_idx < 8; bit_idx++)
   {
-    cur = (uint32_t)x[bit_idx];
+    uint32_t cur = (uint32_t)x[bit_idx];
     for (arr_idx = 0; arr_idx < 32; arr_idx++)
     {
       r[arr_idx] |= ((cur & (1 << arr_idx)) >> arr_idx) << bit_idx;
@@ -262,7 +260,7 @@ void sss_create_keyshares(sss_Keyshare *out, const uint8_t key[32], uint8_t n,
   assert(k != 0);
   assert(k <= n);
 
-  uint8_t share_idx, coeff_idx, unbitsliced_x;
+  uint8_t share_idx, coeff_idx;
   uint32_t poly0[8], poly[k - 1][8], x[8], y[8], xpow[8], tmp[8];
 
   /* Put the secret in the bottom part of the polynomial */
@@ -274,7 +272,7 @@ void sss_create_keyshares(sss_Keyshare *out, const uint8_t key[32], uint8_t n,
   for (share_idx = 0; share_idx < n; share_idx++)
   {
     /* x value is in 1..n */
-    unbitsliced_x = share_idx + 1;
+    uint8_t unbitsliced_x = share_idx + 1;
     out[share_idx][0] = unbitsliced_x;
     bitslice_setall(x, unbitsliced_x);
 
