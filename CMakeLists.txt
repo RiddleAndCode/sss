@@ -7,6 +7,8 @@ if(CPPCHECK)
     set(CMAKE_C_CPPCHECK "cppcheck" --enable=warning,performance,portability,style --error-exitcode=1 --force --quiet)
 endif()
 
+add_compile_options(-Wall -pedantic -g -O0 --coverage)
+
 add_subdirectory(src)
 
 if(TARGET_GROUP STREQUAL main)
