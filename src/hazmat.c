@@ -17,48 +17,47 @@
  * lookup operations, as all proper crypto code must be.
  */
 
-//#include "randombytes.h"
 #include "hazmat.h"
-#include "../rng.h"
 #include <assert.h>
-#include <string.h>
+#include <sss.h>
 
-#define randombytes rng
-
-typedef struct {
-  uint8_t x;
-  uint8_t y;
-} ByteShare;
-
-static void bitslice(uint32_t r[8], const uint8_t x[32]) {
+static void bitslice(uint32_t r[8], const uint8_t x[32])
+{
   size_t bit_idx, arr_idx;
   uint32_t cur;
 
   memset(r, 0, sizeof(uint32_t[8]));
-  for (arr_idx = 0; arr_idx < 32; arr_idx++) {
+  for (arr_idx = 0; arr_idx < 32; arr_idx++)
+  {
     cur = (uint32_t)x[arr_idx];
-    for (bit_idx = 0; bit_idx < 8; bit_idx++) {
+    for (bit_idx = 0; bit_idx < 8; bit_idx++)
+    {
       r[bit_idx] |= ((cur & (1 << bit_idx)) >> bit_idx) << arr_idx;
     }
   }
 }
 
-static void unbitslice(uint8_t r[32], const uint32_t x[8]) {
+static void unbitslice(uint8_t r[32], const uint32_t x[8])
+{
   size_t bit_idx, arr_idx;
   uint32_t cur;
 
   memset(r, 0, sizeof(uint8_t[32]));
-  for (bit_idx = 0; bit_idx < 8; bit_idx++) {
+  for (bit_idx = 0; bit_idx < 8; bit_idx++)
+  {
     cur = (uint32_t)x[bit_idx];
-    for (arr_idx = 0; arr_idx < 32; arr_idx++) {
+    for (arr_idx = 0; arr_idx < 32; arr_idx++)
+    {
       r[arr_idx] |= ((cur & (1 << arr_idx)) >> arr_idx) << bit_idx;
     }
   }
 }
 
-static void bitslice_setall(uint32_t r[8], const uint8_t x) {
+static void bitslice_setall(uint32_t r[8], const uint8_t x)
+{
   size_t idx;
-  for (idx = 0; idx < 8; idx++) {
+  for (idx = 0; idx < 8; idx++)
+  {
     r[idx] = ((int32_t)((x & (1 << idx)) << (31 - idx))) >> 31;
   }
 }
@@ -66,7 +65,8 @@ static void bitslice_setall(uint32_t r[8], const uint8_t x) {
 /*
  * Add (XOR) `r` with `x` and store the result in `r`.
  */
-static void gf256_add(uint32_t r[8], const uint32_t x[8]) {
+static void gf256_add(uint32_t r[8], const uint32_t x[8])
+{
   size_t idx;
   for (idx = 0; idx < 8; idx++)
     r[idx] ^= x[idx];
@@ -78,7 +78,8 @@ static void gf256_add(uint32_t r[8], const uint32_t x[8]) {
  * and `b` will produce an incorrect result! If you need to square a polynomial
  * use `gf256_square` instead.
  */
-static void gf256_mul(uint32_t r[8], const uint32_t a[8], const uint32_t b[8]) {
+static void gf256_mul(uint32_t r[8], const uint32_t a[8], const uint32_t b[8])
+{
   /* This function implements Russian Peasant multiplication on two
    * bitsliced polynomials.
    *
@@ -188,7 +189,8 @@ static void gf256_mul(uint32_t r[8], const uint32_t a[8], const uint32_t b[8]) {
 /*
  * Square `x` in GF(2^8) and write the result to `r`. `r` and `x` may overlap.
  */
-static void gf256_square(uint32_t r[8], const uint32_t x[8]) {
+static void gf256_square(uint32_t r[8], const uint32_t x[8])
+{
   uint32_t r8, r10, r12, r14;
   /* Use the Freshman's Dream rule to square the polynomial
    * Assignments are done from 7 downto 0, because this allows the user
@@ -230,7 +232,8 @@ static void gf256_square(uint32_t r[8], const uint32_t x[8]) {
 /*
  * Invert `x` in GF(2^8) and write the result to `r`
  */
-static void gf256_inv(uint32_t r[8], uint32_t x[8]) {
+static void gf256_inv(uint32_t r[8], uint32_t x[8])
+{
   uint32_t y[8], z[8];
 
   gf256_square(y, x); // y = x^2
@@ -252,7 +255,8 @@ static void gf256_inv(uint32_t r[8], uint32_t x[8]) {
  * structs.
  */
 void sss_create_keyshares(sss_Keyshare *out, const uint8_t key[32], uint8_t n,
-                          uint8_t k) {
+                          uint8_t k)
+{
   /* Check if the parameters are valid */
   assert(n != 0);
   assert(k != 0);
@@ -267,7 +271,8 @@ void sss_create_keyshares(sss_Keyshare *out, const uint8_t key[32], uint8_t n,
   /* Generate the other terms of the polynomial */
   randombytes((void *)poly, sizeof(poly));
 
-  for (share_idx = 0; share_idx < n; share_idx++) {
+  for (share_idx = 0; share_idx < n; share_idx++)
+  {
     /* x value is in 1..n */
     unbitsliced_x = share_idx + 1;
     out[share_idx][0] = unbitsliced_x;
@@ -278,7 +283,8 @@ void sss_create_keyshares(sss_Keyshare *out, const uint8_t key[32], uint8_t n,
     memset(xpow, 0, sizeof(xpow));
     xpow[0] = ~0;
     gf256_add(y, poly0);
-    for (coeff_idx = 0; coeff_idx < (k - 1); coeff_idx++) {
+    for (coeff_idx = 0; coeff_idx < (k - 1); coeff_idx++)
+    {
       gf256_mul(xpow, xpow, x);
       gf256_mul(tmp, xpow, poly[coeff_idx]);
       gf256_add(y, tmp);
@@ -292,25 +298,29 @@ void sss_create_keyshares(sss_Keyshare *out, const uint8_t key[32], uint8_t n,
  * to `key`.
  */
 void sss_combine_keyshares(uint8_t key[32], const sss_Keyshare *key_shares,
-                           uint8_t k) {
+                           uint8_t k)
+{
   size_t share_idx, idx1, idx2;
   uint32_t xs[k][8], ys[k][8];
   uint32_t num[8], denom[8], tmp[8];
   uint32_t secret[8] = {0};
 
   /* Collect the x and y values */
-  for (share_idx = 0; share_idx < k; share_idx++) {
+  for (share_idx = 0; share_idx < k; share_idx++)
+  {
     bitslice_setall(xs[share_idx], key_shares[share_idx][0]);
     bitslice(ys[share_idx], &key_shares[share_idx][1]);
   }
 
   /* Use Lagrange basis polynomials to calculate the secret coefficient */
-  for (idx1 = 0; idx1 < k; idx1++) {
+  for (idx1 = 0; idx1 < k; idx1++)
+  {
     memset(num, 0, sizeof(num));
     memset(denom, 0, sizeof(denom));
     num[0] = ~0;   /* num is the numerator (=1) */
     denom[0] = ~0; /* denom is the numerator (=1) */
-    for (idx2 = 0; idx2 < k; idx2++) {
+    for (idx2 = 0; idx2 < k; idx2++)
+    {
       if (idx1 == idx2)
         continue;
       gf256_mul(num, num, xs[idx2]);
