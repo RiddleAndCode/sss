@@ -59,7 +59,7 @@ void sss_create_keyshares(sss_Keyshare *out,
  * data, you should use the `sss_combine_shares` function in `sss.h`.
  */
 void sss_combine_keyshares(uint8_t key[32],
-                           const sss_Keyshare *shares,
+                           const sss_Keyshare *key_shares,
                            uint8_t k);
 
 #endif /* sss_HAZMAT_H_ */
