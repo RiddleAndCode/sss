@@ -8,6 +8,5 @@
 
 void test_shares(void);
 void test_key_shares(void);
-int main(void);
 
 #endif // sss_TESTS_H_

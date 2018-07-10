@@ -30,14 +30,13 @@ if(STATIC_ANALYSIS)
 endif()
 
 
-add_subdirectory(src)
-
 if(TARGET_GROUP STREQUAL main)
-    message(SKIP "Nothing to do...")
+    add_subdirectory(src)
 elseif(TARGET_GROUP STREQUAL test)
-    include(CTest)
     add_compile_options(-std=c99 -Wall -Wextra -Werror -pedantic -g -O1 --coverage -fsanitize=address -fno-omit-frame-pointer -pg)
     SET(CMAKE_EXE_LINKER_FLAGS "-std=c99 -Wall -Wextra -Werror -pedantic -g -O1 --coverage -fsanitize=address -fno-omit-frame-pointer -pg ${CMAKE_EXE_LINKER_FLAGS}")
+    add_subdirectory(src)
+    include(CTest)
     add_subdirectory(tests)
 else()
     message(FATAL_ERROR "Given TARGET_GROUP unknown")
