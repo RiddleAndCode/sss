@@ -19,13 +19,13 @@ typedef i64 gf[16];
 #define crypto_auth_hmacsha512256_tweet_BYTES 32
 #define crypto_auth_hmacsha512256_tweet_KEYBYTES 32
 extern int crypto_auth_hmacsha512256_tweet(unsigned char *,
-                                           const unsigned char *,
-                                           unsigned long long,
-                                           const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *);
 extern int crypto_auth_hmacsha512256_tweet_verify(const unsigned char *,
-                                                  const unsigned char *,
-                                                  unsigned long long,
-                                                  const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *);
 #define crypto_auth_hmacsha512256_tweet_VERSION "-"
 #define crypto_auth_hmacsha512256 crypto_auth_hmacsha512256_tweet
 #define crypto_auth_hmacsha512256_verify crypto_auth_hmacsha512256_tweet_verify
@@ -64,21 +64,21 @@ extern int crypto_auth_hmacsha512256_tweet_verify(const unsigned char *,
 #define crypto_box_curve25519xsalsa20poly1305_tweet_ZEROBYTES 32
 #define crypto_box_curve25519xsalsa20poly1305_tweet_BOXZEROBYTES 16
 extern int crypto_box_curve25519xsalsa20poly1305_tweet(
-    unsigned char *, const unsigned char *, unsigned long long,
-    const unsigned char *, const unsigned char *, const unsigned char *);
+  unsigned char *, const unsigned char *, unsigned long long,
+  const unsigned char *, const unsigned char *, const unsigned char *);
 extern int crypto_box_curve25519xsalsa20poly1305_tweet_open(
-    unsigned char *, const unsigned char *, unsigned long long,
-    const unsigned char *, const unsigned char *, const unsigned char *);
+  unsigned char *, const unsigned char *, unsigned long long,
+  const unsigned char *, const unsigned char *, const unsigned char *);
 extern int crypto_box_curve25519xsalsa20poly1305_tweet_keypair(unsigned char *,
-                                                               unsigned char *);
+    unsigned char *);
 extern int crypto_box_curve25519xsalsa20poly1305_tweet_beforenm(
-    unsigned char *, const unsigned char *, const unsigned char *);
+  unsigned char *, const unsigned char *, const unsigned char *);
 extern int crypto_box_curve25519xsalsa20poly1305_tweet_afternm(
-    unsigned char *, const unsigned char *, unsigned long long,
-    const unsigned char *, const unsigned char *);
+  unsigned char *, const unsigned char *, unsigned long long,
+  const unsigned char *, const unsigned char *);
 extern int crypto_box_curve25519xsalsa20poly1305_tweet_open_afternm(
-    unsigned char *, const unsigned char *, unsigned long long,
-    const unsigned char *, const unsigned char *);
+  unsigned char *, const unsigned char *, unsigned long long,
+  const unsigned char *, const unsigned char *);
 #define crypto_box_curve25519xsalsa20poly1305_tweet_VERSION "-"
 #define crypto_box_curve25519xsalsa20poly1305 \
   crypto_box_curve25519xsalsa20poly1305_tweet
@@ -155,8 +155,8 @@ extern int crypto_core_hsalsa20_tweet(unsigned char *, const unsigned char *,
 #define crypto_hashblocks_sha512_tweet_STATEBYTES 64
 #define crypto_hashblocks_sha512_tweet_BLOCKBYTES 128
 extern int crypto_hashblocks_sha512_tweet(unsigned char *,
-                                          const unsigned char *,
-                                          unsigned long long);
+    const unsigned char *,
+    unsigned long long);
 #define crypto_hashblocks_sha512_tweet_VERSION "-"
 #define crypto_hashblocks_sha512 crypto_hashblocks_sha512_tweet
 #define crypto_hashblocks_sha512_STATEBYTES \
@@ -168,8 +168,8 @@ extern int crypto_hashblocks_sha512_tweet(unsigned char *,
 #define crypto_hashblocks_sha256_tweet_STATEBYTES 32
 #define crypto_hashblocks_sha256_tweet_BLOCKBYTES 64
 extern int crypto_hashblocks_sha256_tweet(unsigned char *,
-                                          const unsigned char *,
-                                          unsigned long long);
+    const unsigned char *,
+    unsigned long long);
 #define crypto_hashblocks_sha256_tweet_VERSION "-"
 #define crypto_hashblocks_sha256 crypto_hashblocks_sha256_tweet
 #define crypto_hashblocks_sha256_STATEBYTES \
@@ -210,13 +210,13 @@ extern int crypto_hash_sha256_tweet(unsigned char *, const unsigned char *,
 #define crypto_onetimeauth_poly1305_tweet_BYTES 16
 #define crypto_onetimeauth_poly1305_tweet_KEYBYTES 32
 extern int crypto_onetimeauth_poly1305_tweet(unsigned char *,
-                                             const unsigned char *,
-                                             unsigned long long,
-                                             const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *);
 extern int crypto_onetimeauth_poly1305_tweet_verify(const unsigned char *,
-                                                    const unsigned char *,
-                                                    unsigned long long,
-                                                    const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *);
 #define crypto_onetimeauth_poly1305_tweet_VERSION "-"
 #define crypto_onetimeauth_poly1305 crypto_onetimeauth_poly1305_tweet
 #define crypto_onetimeauth_poly1305_verify \
@@ -240,10 +240,10 @@ extern int crypto_onetimeauth_poly1305_tweet_verify(const unsigned char *,
 #define crypto_scalarmult_curve25519_tweet_BYTES 32
 #define crypto_scalarmult_curve25519_tweet_SCALARBYTES 32
 extern int crypto_scalarmult_curve25519_tweet(unsigned char *,
-                                              const unsigned char *,
-                                              const unsigned char *);
+    const unsigned char *,
+    const unsigned char *);
 extern int crypto_scalarmult_curve25519_tweet_base(unsigned char *,
-                                                   const unsigned char *);
+    const unsigned char *);
 #define crypto_scalarmult_curve25519_tweet_VERSION "-"
 #define crypto_scalarmult_curve25519 crypto_scalarmult_curve25519_tweet
 #define crypto_scalarmult_curve25519_base \
@@ -272,15 +272,15 @@ extern int crypto_scalarmult_curve25519_tweet_base(unsigned char *,
 #define crypto_secretbox_xsalsa20poly1305_tweet_ZEROBYTES 32
 #define crypto_secretbox_xsalsa20poly1305_tweet_BOXZEROBYTES 16
 extern int crypto_secretbox_xsalsa20poly1305_tweet(unsigned char *,
-                                                   const unsigned char *,
-                                                   unsigned long long,
-                                                   const unsigned char *,
-                                                   const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *,
+    const unsigned char *);
 extern int crypto_secretbox_xsalsa20poly1305_tweet_open(unsigned char *,
-                                                        const unsigned char *,
-                                                        unsigned long long,
-                                                        const unsigned char *,
-                                                        const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *,
+    const unsigned char *);
 #define crypto_secretbox_xsalsa20poly1305_tweet_VERSION "-"
 #define crypto_secretbox_xsalsa20poly1305 \
   crypto_secretbox_xsalsa20poly1305_tweet
@@ -314,9 +314,9 @@ extern int crypto_sign_ed25519_tweet(unsigned char *, unsigned long long *,
                                      const unsigned char *, unsigned long long,
                                      const unsigned char *);
 extern int crypto_sign_ed25519_tweet_open(unsigned char *, unsigned long long *,
-                                          const unsigned char *,
-                                          unsigned long long,
-                                          const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *);
 extern int crypto_sign_ed25519_tweet_keypair(unsigned char *, unsigned char *);
 #define crypto_sign_ed25519_tweet_VERSION "-"
 #define crypto_sign_ed25519 crypto_sign_ed25519_tweet
@@ -342,10 +342,10 @@ extern int crypto_stream_xsalsa20_tweet(unsigned char *, unsigned long long,
                                         const unsigned char *,
                                         const unsigned char *);
 extern int crypto_stream_xsalsa20_tweet_xor(unsigned char *,
-                                            const unsigned char *,
-                                            unsigned long long,
-                                            const unsigned char *,
-                                            const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *,
+    const unsigned char *);
 #define crypto_stream_xsalsa20_tweet_VERSION "-"
 #define crypto_stream_xsalsa20 crypto_stream_xsalsa20_tweet
 #define crypto_stream_xsalsa20_xor crypto_stream_xsalsa20_tweet_xor
@@ -360,10 +360,10 @@ extern int crypto_stream_salsa20_tweet(unsigned char *, unsigned long long,
                                        const unsigned char *,
                                        const unsigned char *);
 extern int crypto_stream_salsa20_tweet_xor(unsigned char *,
-                                           const unsigned char *,
-                                           unsigned long long,
-                                           const unsigned char *,
-                                           const unsigned char *);
+    const unsigned char *,
+    unsigned long long,
+    const unsigned char *,
+    const unsigned char *);
 #define crypto_stream_salsa20_tweet_VERSION "-"
 #define crypto_stream_salsa20 crypto_stream_salsa20_tweet
 #define crypto_stream_salsa20_xor crypto_stream_salsa20_tweet_xor
