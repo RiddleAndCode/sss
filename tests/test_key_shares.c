@@ -28,6 +28,7 @@ void test_key_shares(void) {
 
 int main(void) {
   UNITY_BEGIN();
+  srand(time(NULL));
   RUN_TEST(test_key_shares);
   return UNITY_END();
 }
