@@ -10,8 +10,8 @@
 #include "tweetnacl.h"
 #include <inttypes.h>
 
-__attribute__((weak)) int random(void *buf, const size_t n);
-#define randombytes random
+__attribute__((weak)) int rng(void *buf, const size_t n);
+#define randombytes rng
 
 #ifndef sss_MLEN
 /*

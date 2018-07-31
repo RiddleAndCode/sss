@@ -31,6 +31,7 @@ void test_shares(void) {
 
 int main(void) {
   UNITY_BEGIN();
+  srand(time(NULL));
   RUN_TEST(test_shares);
   return UNITY_END();
 }
