@@ -288,6 +288,12 @@ void sss_create_keyshares(sss_Keyshare *out, const uint8_t key[32], uint8_t n, /
       gf256_add(y, tmp); // NOLINT
     } // NOLINT
     unbitslice(&out[share_idx][1], y); // NOLINT
+    memset(poly0,0,sizeof(poly0));
+    memset(poly,0,sizeof(poly));
+    memset(x,0,sizeof(x));
+    memset(y,0,sizeof(y));
+    memset(xpow,0,sizeof(xpow));
+    memset(tmp,0,sizeof(tmp));
   } // NOLINT
 } // NOLINT
 // NOLINT
@@ -332,5 +338,11 @@ void sss_combine_keyshares(uint8_t key[32], const sss_Keyshare *key_shares, // N
     gf256_add(secret, num); // NOLINT
   } // NOLINT
   unbitslice(key, secret); // NOLINT
+  memset(xs,0,sizeof(xs));
+  memset(ys,0,sizeof(ys));
+  memset(num,0,sizeof(num));
+  memset(denom,0,sizeof(denom));
+  memset(tmp,0,sizeof(tmp));
+  memset(secret,0,sizeof(secret));
 } // NOLINT
 // NOLINT
