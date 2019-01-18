@@ -289,12 +289,12 @@ void sss_create_keyshares(sss_Keyshare *out, const uint8_t key[32], uint8_t n, /
     } // NOLINT
     unbitslice(&out[share_idx][1], y); // NOLINT
   } // NOLINT
-    memset(poly0,0,sizeof(poly0));
-    memset(poly,0,sizeof(poly));
-    memset(x,0,sizeof(x));
-    memset(y,0,sizeof(y));
-    memset(xpow,0,sizeof(xpow));
-    memset(tmp,0,sizeof(tmp));
+  memset(poly0,0,sizeof(poly0));
+  memset(poly,0,sizeof(poly));
+  memset(x,0,sizeof(x));
+  memset(y,0,sizeof(y));
+  memset(xpow,0,sizeof(xpow));
+  memset(tmp,0,sizeof(tmp));
 } // NOLINT
 // NOLINT
 /* // NOLINT
